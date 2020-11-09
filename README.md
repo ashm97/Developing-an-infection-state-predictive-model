@@ -10,4 +10,4 @@ If used please cite: Myall, A.C., Perkins, S., Rushton, D., Jonathan, D., Spence
 
 ## Preview
 
-![alt text](https://github.com/[ashm97]/[Developing-an-infection-state-predictive-model]/images/preview_batch_pca.png?raw=true)
+![alt text](https://raw.githubusercontent.com/ashm97/Developing-an-infection-state-predictive-model/main/images/preview_batch_pca.png)
