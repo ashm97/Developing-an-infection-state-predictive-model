@@ -399,11 +399,13 @@ rF.class <- function (chr, parent, tr, te, result)
 # Set cores for parallel
 cores = detectCores() - 1
 
-# Run backwards elimination in parallel 
+# Run backwards elimination in parallel. Output res is a list of run outputs, 
+# optimal model performance, gene name mapping to model.
 res = doParBackElim(data_path = "./example data/example_bc.RDS",
             name = "example_dat",
             trees = 100,
             dropFrac = 0.1,
             runs = 1,
             cores = 1) # <--Do runs in parallel
+
 

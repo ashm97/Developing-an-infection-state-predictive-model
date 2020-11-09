@@ -145,3 +145,6 @@ parLapply(cl = cl,rep(list(7),length(cores)),function(x){
 })
 
 stopCluster(cl)
+
+# Analyse run
+loadObject("galgo.search.parallel.Rdata")
