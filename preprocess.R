@@ -417,8 +417,6 @@ test_batch_genes = function(intens_1,intens_2,ref_1,ref_2){
 # A list containing 3 platform datasets from GPL570,GPL571,GPL9188
 data.list = readRDS("./example data/example_raw.RDS")
 
-saveRDS(data.list,"./example data/example_raw.RDS")
-
 
 ## 1. Run batch correction over list of studies 
 data.list.bc = lapply(data.list, batch_gse)
@@ -466,4 +464,4 @@ gene_test_b2 = test_batch_genes(bc.merged$intensity,
                                 bc_2$ref)
 
 # 5. Save example batch corrected data
-saveRDS(bc_2,"./Output/bc_example.RDS")
+#saveRDS(bc_2,"./Output/bc_example.RDS")
