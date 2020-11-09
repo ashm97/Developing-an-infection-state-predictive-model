@@ -12,8 +12,4 @@ If used please cite: Myall, A.C., Perkins, S., Rushton, D., Jonathan, D., Spence
 
 Removing batch correction from merged study datasets. Visualising with PCA:
 
-![alt text](https://raw.githubusercontent.com/ashm97/Developing-an-infection-state-predictive-model/main/images/preview_batch_pca.png) {
-  width: 70%;
-  border: none;
-  background: none;
-}
+![alt text](https://raw.githubusercontent.com/ashm97/Developing-an-infection-state-predictive-model/main/images/preview_batch_pca.png) 
