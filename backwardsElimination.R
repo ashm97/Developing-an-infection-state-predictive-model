@@ -1,6 +1,6 @@
 ## ---------------------------
 ##
-## Script name: Main script to run feature selection (backwards elimination) over gene expression data
+## Script name: backwardsElimination.R
 ##
 ## Author: Mr. Ashleigh C. Myall
 ##
@@ -11,7 +11,8 @@
 ##
 ## ---------------------------
 ##
-## Notes: Load in data. Run backwards elimination.
+## Notes: Main script to run feature selection (backwards elimination) over gene 
+## expression dataLoad in data. Run backwards elimination.
 ##
 ## ---------------------------
 
@@ -384,7 +385,7 @@ rF.class <- function (chr, parent, tr, te, result)
 ################################################################################
 
 ##########
-##########                       Work Flow 
+##########                      Main Work Flow 
 ##########
 
 ################################################################################
@@ -406,86 +407,3 @@ res = doParBackElim(data_path = "./example data/example_bc.RDS",
             runs = 1,
             cores = 1) # <--Do runs in parallel
 
-
-
-# ------------------------------------------------------------------------------
-
-##
-##  2. 
-##
-
-
-#load data
-library(galgo)
-library(randomForest)
-
-data <- readRDS("./illumina.prebatch.confirmedsplits.RDS")
-data <- rbind(data$train,data$val,data$test)
-
-#data <- read.csv("../data.csv",row.names=1)
-#ref <- read.csv("reference.csv")
-
-
-
-cls.use <- factor(data$sample.type)
-data.use <- t(as.matrix(data[,-which(colnames(data) == "sample.type")]))
-cls.tab <- table(cls.use)
-cls.tab <- (1-(cls.tab/sum(cls.tab)))
-cls.weight <- as.numeric(cls.tab)
-names(cls.weight) <- names(cls.tab)
-
-#options
-maxSolutions <- 250	
-maxBigBangs <- 250
-chromosomeSize <- 30
-goalFitness <- 0.95
-saveFrequency <- 5
-
-tit <- paste(levels(cls.use),collapse="-")
-save.File <- gsub("\\?",".",paste(tit,".RData",sep=""))
-
-
-galgo.search <- configBB.VarSel(
-  data = data.use,
-  classes = cls.use,
-  main = tit,
-  classification.method = "user",
-  classification.train.error = "kfolds",
-  classification.userFitnessFunc="rF.class",
-  chromosomeSize = chromosomeSize,
-  maxBigBangs = maxBigBangs,
-  maxSolutions = maxSolutions,
-  goalFitness = goalFitness,
-  saveVariable = "galgo.search",
-  saveFrequency = saveFrequency,
-  saveFile = "galgo.search.parallel.Rdata",
-  callBackFuncBB=NULL
-)
-galgo.search$data$avg <- T
-galgo.search$data$ntree <- 300
-galgo.search$data$mtry <- 5
-galgo.search$data$cls.weight <- cls.weight
-
-
-saveObject(galgo.search, saveFile="galgo.search.parallel.Rdata")
-
-
-
-# Set cores for parallel
-cores = detectCores() - 1
-
-cl <- makeCluster(cores)
-
-parLapply(cl = cl,rep(list(7),length(cores)),function(x){
-  
-  save.file <- "galgo.search.parallel.Rdata"
-  
-  library(galgo)
-  loadObject(save.file)
-  assignParallelFile(galgo.search)
-  blast(galgo.search)
-  
-  
-})
-
-stopCluster(cl)

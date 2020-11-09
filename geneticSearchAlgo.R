@@ -1,6 +1,6 @@
 ## ---------------------------
 ##
-## Script name: Main script to run feature selection (genetic search algorithm) over gene expression data
+## Script name: geneticSearchAlgo.R
 ##
 ## Author: Mr. Ashleigh C. Myall
 ##
@@ -11,7 +11,9 @@
 ##
 ## ---------------------------
 ##
-## Notes: Load in data. Run genetic search algorithm.
+## Notes: Main script to run feature selection (genetic search algorithm) over 
+## gene expression data. WARNING R GALGO is not updated to work with R3.6 so this
+## script is not currently functional
 ##
 ## ---------------------------
 
@@ -71,7 +73,7 @@ rF.class <- function (chr, parent, tr, te, result)
 ################################################################################
 
 ##########
-##########                       Work Flow 
+##########                       Main Work Flow 
 ##########
 
 ################################################################################
