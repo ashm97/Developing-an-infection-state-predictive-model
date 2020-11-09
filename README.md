@@ -10,6 +10,6 @@ If used please cite: Myall, A.C., Perkins, S., Rushton, D., Jonathan, D., Spence
 
 ## Preview
 
-Removing batch correction from merged study datasets. Visualisation with PCA:
+Removing batch correction from merged study datasets. PCA visualisation of removal of clustering by platform (batch effects) using our multistep batch correction pipeline:
 
 ![alt text](https://raw.githubusercontent.com/ashm97/Developing-an-infection-state-predictive-model/main/images/preview_batch_pca.png) 
