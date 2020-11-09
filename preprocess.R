@@ -1,6 +1,6 @@
 ## ---------------------------
 ##
-## Script name: Preprocess gene expression data (batch correct & merging)
+## Script name: preprocess.R 
 ##
 ## Author: Mr. Ashleigh C. Myall
 ##
@@ -11,8 +11,17 @@
 ##
 ## ---------------------------
 ##
-## Notes: Load in data (list of studies) batch correct, merge, and test batch 
-## correction with PCA and gene overlaps. For detailed methods see:
+## Notes: This script contains the preprocessing code to batch correct and merge 
+## gene expression data. The full methodology can be found in the supplementary 
+## of https://www.medrxiv.org/content/10.1101/2020.07.28.20163329v2. The script 
+## starts by loading in an example dataset containing several studies 3 microarray 
+## several platforms. The studies are batch corrected within platform-specific 
+## datasets; these datasets are then merged, over common genes; then batch corrected 
+## for a second time over platform level affects. Two checks are implemented within 
+## the script: (1) the PCA of gene expression data before and after batch can be 
+## visualised (to see if clustering by non-biological effects is removed), and 
+## (2) checking the overlaps of differentially expressed genes before and after 
+## batch correction (to ensure batch correction has not removed the biological variation).
 ##
 ## ---------------------------
 
@@ -66,8 +75,9 @@ batch_gse = function(x){
   row.names(data) = x$intensity$ref
   gse = x$ref$GSE
   sample.type = x$intensity$sample.type
-  if(length(unique(gse))==1){ # no batch correction for single studies
+  if(length(unique(gse))==1){
     bc = data
+    print("No batch correction for single study")
   }else{
     bc = combat_func(data,gse, sample.type)
   }
@@ -394,7 +404,7 @@ test_batch_genes = function(intens_1,intens_2,ref_1,ref_2){
 ################################################################################
 
 ##########
-##########                       Work Flow 
+##########                       Main Work Flow 
 ##########
 
 ################################################################################
@@ -406,6 +416,9 @@ test_batch_genes = function(intens_1,intens_2,ref_1,ref_2){
 
 # A list containing 3 platform datasets from GPL570,GPL571,GPL9188
 data.list = readRDS("./example data/example_raw.RDS")
+
+saveRDS(data.list,"./example data/example_raw.RDS")
+
 
 ## 1. Run batch correction over list of studies 
 data.list.bc = lapply(data.list, batch_gse)
@@ -421,6 +434,10 @@ bc_2 = batch_gpl(bc.merged)
 
 ## 4. Batch correction tests
 
+# Here you can check the success/failure of each batch correction step: (1) visulisation
+# with PCA, where you can analyse the affect of clustering; (2) testing the overlaps
+# between differentially expressed genes before and after batch corrections.
+
 # 4.1 - PCA before/after batch correction
 pca.anal = pca_batch(bc.merged,bc_2)
 #pca.anal2 = pca_batch(data.list$platform1,data.list.bc$platform1)
@@ -428,11 +445,19 @@ pca.anal = pca_batch(bc.merged,bc_2)
 
 # 4.2 Test gene overlaps before/after batch correction
 
+# Results of batch correction are investigated for impact on the underlying biology 
+# by comparing differentially expressed genes before and after batch correction 
+# using a Fisher's exact t-test and a Hyper Geometric Test. For a significant 
+# result, the overlap of differentially expressed genes was significant, and we 
+# inferred batch correction had not removed biological variation. Conversely, for 
+# a non-significant differentially expressed gene overlap, batch correction had 
+# likely removed biological variation and damaged the data quality. 
+
 # Example test of batch correction 1
-gene_test_b1 = test_batch_genes(data.list$platform1$intensity,
-                                data.list.bc$platform1$intensity,
-                                data.list$platform1$ref,
-                                data.list.bc$platform1$ref)
+gene_test_b1 = test_batch_genes(data.list$platform1$intensity, # <- intensity data 1
+                                data.list.bc$platform1$intensity, # <- intensity data 2
+                                data.list$platform1$ref, # <- ref data 1
+                                data.list.bc$platform1$ref) # <- ref data 2
 
 # Example test of batch correction 2
 gene_test_b2 = test_batch_genes(bc.merged$intensity,
