@@ -146,5 +146,46 @@ parLapply(cl = cl,rep(list(7),length(cores)),function(x){
 
 stopCluster(cl)
 
+# ------------------------------------------------------------------------------
+
+##
+##  2. Analysis of results
+##
+
 # Analyse run
 loadObject("galgo.search.parallel.Rdata")
+loadParallelFiles(galgo.search)
+
+plot(galgo.search) 
+plot(galgo.search, type="fitness") 
+plot(galgo.search, type="generankstability") 
+
+heatmapModels(galgo.search,galgo.search$bestChromosomes[[12]])
+
+
+
+# ------------------------------------------------------------------------------
+
+##
+##  3. Extract gene frequencies
+##
+
+best.chromes = galgo.search$bestChromosomes # List of formatted evolved or refined chromosomes.
+gene.names = galgo.search$geneNames
+
+get_gene <- function(x,names) { 
+  names[x]
+  return(names[x])
+}
+
+best.chromes.genes = lapply(best.chromes, get_gene,gene.names)
+unlisted.genes = unlist(best.chromes.genes)
+
+genes = best.chromes.genes[[1]]
+for (i in 2:length(best.chromes.genes)) {
+  genes = c(genes,best.chromes.genes[[i]])
+}
+
+GeneFreq = as.data.frame(table(genes))
+
+
