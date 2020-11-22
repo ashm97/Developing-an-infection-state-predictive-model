@@ -24,5 +24,7 @@ A 60/20/20 training/test/evaluation data split is used in our Backwards eliminat
 
 ** package currently unsuported by R 3.6
 
-Victor Trevino, Francesco Falciani, GALGO: an R package for multivariate variable selection using genetic algorithms, Bioinformatics, Volume 22, Issue 9, 1 May 2006, Pages 1154–1156, https://doi.org/10.1093/bioinformatics/btl074
+The Genetic-Algorithm optimized approach is an efficient method for creating suitable multivariate models. We used the R library GALGO [1] to identify a small feature model by continuously crossing a number of small feature models (chromosomes of features) with each other, hypothetically identifying better models with successive generations and repeating this procedure several times. We used an initialised fitness goal of 0.95, model size (chromosome size) of 15 genes, and k-fold cross-validation to counter overtraining. After multiple models are generated for each dataset and a representative model established through a frequency based forward selection strategy which ensures only genes that contributed to predictions are included in the final model.
+
+1. Victor Trevino, Francesco Falciani, GALGO: an R package for multivariate variable selection using genetic algorithms, Bioinformatics, Volume 22, Issue 9, 1 May 2006, Pages 1154–1156, https://doi.org/10.1093/bioinformatics/btl074
 
