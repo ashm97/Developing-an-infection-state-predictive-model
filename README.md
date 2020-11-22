@@ -10,13 +10,15 @@ If used please cite: Myall, A.C., Perkins, S., Rushton, D., Jonathan, D., Spence
 
 ## Batch correction
 
+We developed a two-phase batch correction pipeline, which included the combination of platforms and studies. Within this process batch correction was done using the Combat [1] algorithm. Results of batch correction were investigated for impact on the underlying biology by comparing dataset differentially expressed genes before and after batch correction using a Fisher's exact t-test and a Hyper Geometric Test. For a significant result, the overlap of differentially expressed genes was significant, and we inferred batch correction had not removed biological variation. Conversely, for a non-significant differentially expressed gene overlap, batch correction had likely removed biological variation and damaged the data quality. We also validated that the batch correction removed the previously observed clustering by study, by visualising before and after principle component plots:
+
 Removing batch correction from merged study datasets. PCA visualisation of removal of clustering by platform (batch effects) using our multistep batch correction pipeline:
 
 ![alt text](https://raw.githubusercontent.com/ashm97/Developing-an-infection-state-predictive-model/main/images/preview_batch_pca.png) 
 
-
-
 ## Backwards elimination
+
+A 60/20/20 training/test/evaluation data split is used in our Backwards elimination, with 60 used for model training, 20 used to select trained models, then a final 20 as a held-out subset for final evaluation and reporting, a standard technique in machine learning. For each dataset we ran multiple search procedures, using Out-of-bag (OOB) error as the minimisation criterion and implementation using the VarSelRF R package (31). Each run generated a single optimal model which minimised OOB. For each dataset, a gene selection frequency is compared between runs, as well as optimal model size to accuracy, and OOB by model size within each run.
 
 ![alt text](https://raw.githubusercontent.com/ashm97/Developing-an-infection-state-predictive-model/main/images/example_backward_elim.png) 
 
