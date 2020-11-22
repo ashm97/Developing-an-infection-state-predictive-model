@@ -18,9 +18,7 @@ Removing batch correction from merged study datasets. PCA visualisation of remov
 
 ## Backwards elimination
 
-
-
-
+![alt text](https://raw.githubusercontent.com/ashm97/Developing-an-infection-state-predictive-model/main/images/example_backward_elim.png) 
 
 ## Genetically inspired search algorithm (GALGO)
 
