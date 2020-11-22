@@ -1,6 +1,6 @@
 # Developing-an-infection-state-predictive-model
 
-This repository contains code supporting the study from https://www.medrxiv.org/content/10.1101/2020.07.28.20163329v2. Scripts and functionality included are (1) multiple-step batch correction, (2) gene feature selection with backwards elimination implemented in VarSelRF with Ranger, (3) gene feature selection with a genetically inspired search algorithm, implemented with GALGO. 
+This repository contains code supporting the study from https://www.medrxiv.org/content/10.1101/2020.07.28.20163329v2. Scripts and functionality included are (1) multiple-step batch correction, (2) gene feature selection with backwards elimination implemented in VarSelRF with Ranger, (3) gene feature selection with a genetically inspired search algorithm, implemented with GALGO (** package currently unsuported by R 3.6)[1]. 
 
 ## Abstract
 
