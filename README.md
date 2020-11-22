@@ -8,8 +8,23 @@ A fundamental problem for disease treatment is that while antibiotics are a powe
 
 If used please cite: Myall, A.C., Perkins, S., Rushton, D., Jonathan, D., Spencer, P., Jones, A.R. and Antczak, P., 2020. Identifying robust biomarkers of infection through an omics-based meta-analysis. medRxiv.
 
-## Preview
+## Batch correction
 
 Removing batch correction from merged study datasets. PCA visualisation of removal of clustering by platform (batch effects) using our multistep batch correction pipeline:
 
 ![alt text](https://raw.githubusercontent.com/ashm97/Developing-an-infection-state-predictive-model/main/images/preview_batch_pca.png) 
+
+
+
+## Backwards elimination
+
+
+
+
+
+## Genetically inspired search algorithm (GALGO)
+
+** package currently unsuported by R 3.6
+
+Victor Trevino, Francesco Falciani, GALGO: an R package for multivariate variable selection using genetic algorithms, Bioinformatics, Volume 22, Issue 9, 1 May 2006, Pages 1154–1156, https://doi.org/10.1093/bioinformatics/btl074
+
